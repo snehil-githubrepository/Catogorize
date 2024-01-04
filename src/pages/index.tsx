@@ -1,11 +1,9 @@
-import Nav from "@/components/Nav";
-import TextArea from "@/components/TextArea";
+import { Landing } from "@/components/Landing";
 
 export default function Home() {
   return (
     <>
-      <Nav label="Home" />
-      <TextArea placeholder="What's Happening" />
+      <Landing />
     </>
   );
 }
