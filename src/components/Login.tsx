@@ -1,4 +1,4 @@
-import GoogleIcon from "../../public/assets/google.svg";
+import { FcGoogle } from "react-icons/fc";
 
 export const Login = () => {
   return (
@@ -7,9 +7,9 @@ export const Login = () => {
         <div>
           <h1 className="text-4xl font-bold mb-4 text-white">Catogorize</h1>
           <img
-            src="/images/cato.jpg"
+            src="/images/cato1.jpg"
             alt=""
-            style={{ width: "400px", height: "auto", borderRadius: "2%" }}
+            style={{ width: "450px", height: "auto", borderRadius: "2%" }}
           />
           <div className="grid grid-cols-3 gap-4">
             {[...Array(9)].map((_, index) => (
@@ -61,13 +61,9 @@ export const Login = () => {
 
                     <button
                       type="button"
-                      className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-green-700 text-white hover:bg-gray-500 focus:outline-none focus:ring-2"
+                      className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-gray-500 text-white hover:bg-gray-500 focus:outline-none focus:ring-2"
                     >
-                      <img
-                        src={GoogleIcon} // Add the Google icon source
-                        alt="Google Icon"
-                        className="w-5 h-5 mr-2"
-                      />
+                      <FcGoogle className="w-5 h-5 mr-2" />
                       Login with Google
                     </button>
                   </div>

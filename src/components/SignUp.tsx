@@ -7,9 +7,9 @@ export const Signup = () => {
         <div>
           <h1 className="text-4xl font-bold mb-4 text-white">Catogorize</h1>
           <img
-            src="/images/cato.jpg"
+            src="/images/cato2.png"
             alt=""
-            style={{ width: "400px", height: "auto", borderRadius: "2%" }}
+            style={{ width: "450px", height: "auto", borderRadius: "2%" }}
           />
           <div className="grid grid-cols-3 gap-4">
             {[...Array(9)].map((_, index) => (

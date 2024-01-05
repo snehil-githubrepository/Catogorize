@@ -1,4 +1,5 @@
-import GoogleIcon from "../../public/assets/google.svg";
+import { FcGoogle } from "react-icons/fc";
+import GoogleIcon from "./assets/google.svg";
 
 export const Landing = () => {
   async function onSignin() {}
@@ -43,7 +44,7 @@ export const Landing = () => {
                     className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md hover:bg-gray-200 focus:outline-none focus:ring-2 "
                     onClick={() => onSignin()}
                   >
-                    <img src={GoogleIcon} className="w-5 h-5 mr-2" />
+                    <FcGoogle className="w-5 h-5 mr-2" />
                     Continue with Google
                   </button>
                 </div>
