@@ -28,7 +28,12 @@ const TextArea: React.FC<TxtAreaProps> = ({ postId, placeholder }) => {
           ></textarea>
           <hr className="opacity-0 peer-focus:opacity-100 h-[1px] w-full border-neutral-300 transition" />
           <div className="mt-4 flex flex-row justify-end">
-            <Button text="Post" />
+            <Button
+              onClick={() => {
+                console.log("posted");
+              }}
+              text="Post"
+            />
           </div>
         </div>
       </div>
