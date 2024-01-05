@@ -23,7 +23,7 @@ const Nav: React.FC<navProps> = ({ label, showBackArrow }) => {
             size={20}
           />
         )}
-        <h1 className="text-black text-xl font-semibold">{label}</h1>
+        <h1 className="text-white text-xl font-semibold">{label}</h1>
       </div>
     </div>
   );

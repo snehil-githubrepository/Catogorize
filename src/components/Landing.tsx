@@ -11,7 +11,7 @@ export const Landing = () => {
           <img
             src="/images/cato.jpg"
             alt=""
-            style={{ width: "400px", height: "auto", borderRadius: "2%" }}
+            style={{ width: "450px", height: "auto", borderRadius: "2%" }}
           />
           <div className="grid grid-cols-3 gap-4">
             {[...Array(9)].map((_, index) => (
@@ -51,8 +51,8 @@ export const Landing = () => {
             </div>
             <div className="p-2 text-center">
               <p className="text-gray-400">
-                New to Neon?{" "}
-                <a href="signup" className="text-blue-500">
+                New to Catogorize?{" "}
+                <a href="register" className="text-blue-500">
                   Sign up for an account
                 </a>
               </p>
