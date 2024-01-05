@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^0.4.4-canary.81",
     "@prisma/client": "^5.7.1",
     "axios": "^1.6.3",
     "bcrypt": "^5.1.1",
     "date-fns": "^3.0.6",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
+    "prisma": "^5.7.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
