@@ -23,7 +23,7 @@ export default async function handler(
     });
     return res.status(200).json(user);
   } catch (e) {
-    console.log(e);
-    return res.status(405).end();
+    console.error("Error registering user:", e);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
