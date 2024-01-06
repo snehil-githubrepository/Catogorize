@@ -67,7 +67,7 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
     >
       <div className="flex flex-row items-start gap-3">
         <h1 className="text-white">Avatar</h1>
-        {/* <Avatar userId={data.user.id} /> */}
+        <Avatar userId={data.user.id} />
         <div>
           <div className="flex flex-row items-center gap-2">
             <p
@@ -79,8 +79,7 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
                                 hover:underline
                         "
             >
-              {/* {data.user.name} */}
-              <h1>john</h1>
+              {data.user.name}
             </p>
             <span
               onClick={goToUser}
@@ -92,8 +91,7 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
                                 md:block
                             "
             >
-              {/* @{data.user.username} */}
-              @johndoe
+              @{data.user.username}
             </span>
             <span className="text-neutral-500 text-sm">{createdAt}</span>
           </div>
@@ -128,7 +126,7 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
                             "
             >
               <LikeIcon color={hasLiked ? "red" : ""} size={20} />
-              {/* <p>{data.likedIds.length}</p> */}
+              <p>{data.likedIds.length}</p>
               <p>0</p>
             </div>
           </div>
