@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { loginAtom, registerAtom } from "@/store/modelAtom";
+import { useRecoilState } from "recoil";
+import { registerAtom } from "@/store/modelAtom";
 import { useRouter } from "next/router";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -16,30 +16,40 @@ export const Signup = () => {
 
   const router = useRouter();
 
-  const onSubmit = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      await axios.post("/api/register", {
-        email,
-        password,
-        name,
-        username,
-      });
-      toast.success("Account Created");
-      await signIn("credentials", {
-        email,
-        password,
-      });
-      setRegisterIsOpen({ isOpen: false });
+  const onSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
-      router.push("/home");
-    } catch (e) {
-      console.log(e);
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [email, name, password, username, setRegisterIsOpen, router]);
+      try {
+        setIsLoading(true);
+        await axios.post("/api/register", {
+          email,
+          password,
+          name,
+          username,
+        });
+        // If the registration is successful, display success message
+        toast.success("Account Created");
+
+        // Automatically sign in the user after successful registration
+        await signIn("credentials", {
+          email,
+          password,
+        });
+
+        // Wait for the sign-in to complete before redirecting
+        await router.push("/home");
+
+        setRegisterIsOpen({ isOpen: false });
+      } catch (e) {
+        console.log(e);
+        toast.error("Something went wrong");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [email, name, password, username, setRegisterIsOpen, router]
+  );
 
   return (
     <div className="flex bg-black">
@@ -70,7 +80,7 @@ export const Signup = () => {
           <div className="mb-4 justify-center py-1 sm:px-6 lg:px-8">
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
               <div className="bg-white py-12 px-4 shadow sm:rounded-lg sm:px-10">
-                <form>
+                <form onSubmit={onSubmit}>
                   <div className="flex flex-col items-center justify-center gap-4">
                     <p className="font-normal text-2xl text-gray-900">
                       Register
@@ -118,7 +128,6 @@ export const Signup = () => {
                     />
                     <button
                       type="submit"
-                      onClick={onSubmit}
                       className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2"
                     >
                       Register
