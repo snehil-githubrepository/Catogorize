@@ -1,6 +1,46 @@
-import GoogleIcon from "../../public/assets/google.svg";
+import React, { useCallback, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { loginAtom, registerAtom } from "@/store/modelAtom";
+import { useRouter } from "next/router";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 export const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [registerIsOpen, setRegisterIsOpen] = useRecoilState(registerAtom);
+
+  const router = useRouter();
+
+  const onSubmit = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      await axios.post("/api/register", {
+        email,
+        password,
+        name,
+        username,
+      });
+      toast.success("Account Created");
+      await signIn("credentials", {
+        email,
+        password,
+      });
+      setRegisterIsOpen({ isOpen: false });
+
+      router.push("/home");
+    } catch (e) {
+      console.log(e);
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [email, name, password, username, setRegisterIsOpen, router]);
+
   return (
     <div className="flex bg-black">
       <div className="w-full md:w-2/5 bg-black flex justify-center items-center h-screen max-sm:hidden max-md:hidden">
@@ -44,12 +84,16 @@ export const Signup = () => {
                       type="text"
                       name="username"
                       placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       className="w-full py-2 px-4 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                       required
                     />
                     <input
                       type="text"
                       name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="Full Name"
                       className="w-full py-2 px-4 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                       required
@@ -57,6 +101,8 @@ export const Signup = () => {
                     <input
                       type="email"
                       name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
                       className="w-full py-2 px-4 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                       required
@@ -65,11 +111,14 @@ export const Signup = () => {
                       type="password"
                       name="password"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="w-full py-2 px-4 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                       required
                     />
                     <button
                       type="submit"
+                      onClick={onSubmit}
                       className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2"
                     >
                       Register

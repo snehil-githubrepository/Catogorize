@@ -1,6 +1,43 @@
 import { FcGoogle } from "react-icons/fc";
+import React, { useCallback, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { loginAtom } from "@/store/modelAtom";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginIsOpen, setLoginIsOpen] = useRecoilState(loginAtom);
+
+  const router = useRouter();
+
+  const onSubmit = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false, // To handle redirect manually
+      });
+      if (result?.error) {
+        // Handle login error
+        console.error("Login Error:", result.error);
+        toast.error("Login failed");
+      } else {
+        // Login successful, redirect to '/home'
+        router.push("/home");
+        setLoginIsOpen({ isOpen: false });
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [email, password, setLoginIsOpen, router]);
+
   return (
     <div className="flex bg-black">
       <div className="w-full md:w-2/5 bg-black flex justify-center items-center h-screen max-sm:hidden max-md:hidden">
@@ -42,6 +79,10 @@ export const Login = () => {
                       type="email"
                       name="email"
                       placeholder="Email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       className="w-full py-2 px-4 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                       required
                     />
@@ -49,11 +90,16 @@ export const Login = () => {
                       type="password"
                       name="password"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       className="w-full py-2 px-4 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                       required
                     />
                     <button
                       type="submit"
+                      onSubmit={onSubmit}
                       className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2"
                     >
                       Login
@@ -61,7 +107,7 @@ export const Login = () => {
 
                     <button
                       type="button"
-                      className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-gray-500 text-white hover:bg-gray-500 focus:outline-none focus:ring-2"
+                      className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-gray-200 text-black hover:bg-gray-300 focus:outline-none focus:ring-2"
                     >
                       <FcGoogle className="w-5 h-5 mr-2" />
                       Login with Google
