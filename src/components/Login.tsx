@@ -14,29 +14,27 @@ export const Login = () => {
 
   const router = useRouter();
 
-  const onSubmit = useCallback(async () => {
+  const handleLogin = useCallback(async () => {
     try {
       setIsLoading(true);
       const result = await signIn("credentials", {
         email,
         password,
-        redirect: false, // To handle redirect manually
+        redirect: false,
       });
       if (result?.error) {
-        // Handle login error
         console.error("Login Error:", result.error);
         toast.error("Login failed");
       } else {
-        // Login successful, redirect to '/home'
         router.push("/home");
         setLoginIsOpen({ isOpen: false });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, setLoginIsOpen, router]);
+  }, [email, password, router, setLoginIsOpen]);
 
   return (
     <div className="flex bg-black">
@@ -98,8 +96,8 @@ export const Login = () => {
                       required
                     />
                     <button
-                      type="submit"
-                      onSubmit={onSubmit}
+                      type="button"
+                      onClick={handleLogin}
                       className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2"
                     >
                       Login
