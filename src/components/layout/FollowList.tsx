@@ -8,7 +8,7 @@ const FollowBar = () => {
     return null;
   }
   return (
-    <div className="px-6 py-4 w-80 hidden lg:block">
+    <div className="px-6 ml-16 py-4 w-80 hidden lg:block">
       <div className="bg-black rounded-xl p-4">
         <h2 className="text-pink-100 flex justify-center text-xl font-semibold">
           Who to Follow
