@@ -45,7 +45,7 @@ const TextArea: React.FC<TxtAreaProps> = ({
     <div className="border-b-[1px] border-neutral-800 bg-white px-5 py-2 mb-5 ml-2 mr-2 rounded-lg">
       <div className="flex flex-row gap-4">
         <div className="mt-4">
-          <Avatar userId="1" />
+          <Avatar userId={currentUser?.id} />
         </div>
         <div className="w-full">
           <textarea
