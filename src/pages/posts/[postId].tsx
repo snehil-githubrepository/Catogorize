@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import TextArea from "@/components/TextArea";
 import PostItem from "@/components/posts/PostItem";
 import Layout from "@/components/Layout";
+import CommentFeed from "@/components/posts/CommentFeed";
 
 const PostView = () => {
   const router = useRouter();
@@ -19,6 +20,12 @@ const PostView = () => {
       </div>
     );
   }
+
+  // Log comments when fetchedPost and comments exist
+  if (fetchedPost && fetchedPost.comments) {
+    console.log("Comments on this post:", fetchedPost.comments);
+  }
+
   return (
     <Layout>
       <Nav label="Catogorize" showBackArrow />
@@ -28,6 +35,7 @@ const PostView = () => {
         postId={postId as string}
         isComment
       />
+      <CommentFeed comments={fetchedPost?.comments} />
     </Layout>
   );
 };

@@ -26,6 +26,7 @@ export default async function handler(
         postId,
       },
     });
+
     return res.status(200).json(comment);
   } catch (e) {
     console.log(e);

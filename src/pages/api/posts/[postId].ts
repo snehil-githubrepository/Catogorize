@@ -19,9 +19,17 @@ export default async function handler(
       },
       include: {
         user: true,
+        comments: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
-    // console.log(post);
+
     if (!post) {
       return res.status(405).send("Wrong postID");
     } else {
