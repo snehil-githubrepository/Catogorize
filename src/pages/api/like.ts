@@ -27,12 +27,15 @@ export default async function handler(
 
     let updatedLikedIds = [...(post.likedIds || [])];
 
-    if (req.method === "POST") {
+    const userAlreadyLiked = updatedLikedIds.includes(currentUser.id);
+
+    if (req.method === "POST" && !userAlreadyLiked) {
       updatedLikedIds.push(currentUser.id);
     }
-    if (req.method === "DELETE") {
+
+    if (req.method === "DELETE" && userAlreadyLiked) {
       updatedLikedIds = updatedLikedIds.filter(
-        (likedId) => likedId !== currentUser?.id
+        (likedId) => likedId !== currentUser.id
       );
     }
 
