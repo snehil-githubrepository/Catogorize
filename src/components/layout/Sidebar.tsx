@@ -26,14 +26,14 @@ const Sidebar = () => {
     },
     {
       label: "Notifications",
-      href: "/home/notifications",
+      href: "/notifications",
       isProtected: true,
       alert: data?.hasNotification,
       icon: BsBellFill,
     },
     {
       label: "Profile",
-      href: `/home/users/${data?.id}`,
+      href: `/user/${data?.id}`,
       isProtected: true,
       icon: FaUser,
     },

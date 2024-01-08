@@ -21,7 +21,7 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
   const goToUser = useCallback(
     (e: any) => {
       e.stopPropagation();
-      router.push(`/users/${data.userId}`);
+      router.push(`/user/${data.userId}`);
     },
     [router, data.userId]
   );
@@ -68,7 +68,9 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
         "
     >
       <div className="flex flex-row items-start gap-3">
-        <Avatar userId={data.user.id} />
+        <div className="mt-1">
+          <Avatar userId={data.user.id} />
+        </div>
         <div>
           <div className="flex flex-row items-center gap-2">
             <p
@@ -128,7 +130,6 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
             >
               <LikeIcon color={hasLiked ? "red" : ""} size={20} />
               <p>{data.likedIds.length}</p>
-              <p>0</p>
             </div>
           </div>
         </div>
