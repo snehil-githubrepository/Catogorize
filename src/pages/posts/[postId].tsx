@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 import Nav from "@/components/Nav";
 import TextArea from "@/components/TextArea";
 import PostItem from "@/components/posts/PostItem";
+import Layout from "@/components/Layout";
 
 const PostView = () => {
   const router = useRouter();
@@ -19,15 +20,15 @@ const PostView = () => {
     );
   }
   return (
-    <>
-      <Nav label="Tweet" showBackArrow />
+    <Layout>
+      <Nav label="Catogorize" showBackArrow />
       <PostItem data={fetchedPost} />
       <TextArea
-        placeholder="Tweet Your Reply"
+        placeholder="Post Your Reply"
         postId={postId as string}
         isComment
       />
-    </>
+    </Layout>
   );
 };
 export default PostView;
