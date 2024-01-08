@@ -1,3 +1,3 @@
 # Catogorize
 
-![catog](https://github.com/snehil-githubrepository/Creatory/assets/69778988/c96f8400-c859-4ec7-b5e1-683f7e99ca4d)
+![image](https://github.com/snehil-githubrepository/Creatory/assets/69778988/545470d1-0565-4422-a5c3-986e9d1f47a1)
