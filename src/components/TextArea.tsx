@@ -5,8 +5,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
-import { useSetRecoilState } from "recoil";
-import { loginAtom, registerAtom } from "@/store/modelAtom";
 import usePost from "@/hooks/usePost";
 
 interface TxtAreaProps {
@@ -26,15 +24,12 @@ const TextArea: React.FC<TxtAreaProps> = ({
   const { mutate: mutatePosts } = usePosts();
   const { mutate: mutatePost } = usePost(postId as string);
 
-  const setIsLoginModal = useSetRecoilState(loginAtom);
-  const setIsRegisterModal = useSetRecoilState(registerAtom);
-
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
       const url = isComment ? `/api/comment?postId=${postId}` : `/api/posts`;
       await axios.post(url, { body });
-      toast.success("Tweet Created");
+      toast.success("Post Created");
       setBody("");
       await mutatePosts();
       mutatePost();
@@ -47,9 +42,9 @@ const TextArea: React.FC<TxtAreaProps> = ({
   }, [body, mutatePosts]);
 
   return (
-    <div className="border-b-[1px] border-neutral-800 bg-white px-5 py-2 mb-5 ml-1 mr-1 rounded-lg">
+    <div className="border-b-[1px] border-neutral-800 bg-white px-5 py-2 mb-5 ml-2 mr-2 rounded-lg">
       <div className="flex flex-row gap-4">
-        <div>
+        <div className="mt-4">
           <Avatar userId="1" />
         </div>
         <div className="w-full">
@@ -57,7 +52,7 @@ const TextArea: React.FC<TxtAreaProps> = ({
             disabled={isLoading}
             onChange={(e) => setBody(e.target.value)}
             value={body}
-            className="disabled:opacity-80 peer rounded-md resize-none mt-3 w-full bg-gray-100 ring-0 outline-none text-[20px] placeholder-neutral-500 text-black"
+            className="disabled:opacity-80 peer rounded-md resize-none mt-3 w-full bg-gray-200 ring-0 outline-none text-[20px] placeholder-neutral-500 "
             placeholder={placeholder}
           ></textarea>
           <hr className="opacity-0 peer-focus:opacity-100 h-[1px] w-full border-neutral-300 transition" />
