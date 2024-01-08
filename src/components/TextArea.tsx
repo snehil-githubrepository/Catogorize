@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import usePosts from "@/hooks/usePosts";
+import axios from "axios";
+import toast from "react-hot-toast";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
+import { useSetRecoilState } from "recoil";
+import { loginAtom, registerAtom } from "@/store/modelAtom";
+import usePost from "@/hooks/usePost";
 
 interface TxtAreaProps {
   placeholder: string;
@@ -8,9 +15,36 @@ interface TxtAreaProps {
   postId?: string;
 }
 
-const TextArea: React.FC<TxtAreaProps> = ({ postId, placeholder }) => {
+const TextArea: React.FC<TxtAreaProps> = ({
+  postId,
+  isComment,
+  placeholder,
+}) => {
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { data: currentUser } = useCurrentUser();
+  const { mutate: mutatePosts } = usePosts();
+  const { mutate: mutatePost } = usePost(postId as string);
+
+  const setIsLoginModal = useSetRecoilState(loginAtom);
+  const setIsRegisterModal = useSetRecoilState(registerAtom);
+
+  const onSubmit = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const url = isComment ? `/api/comment?postId=${postId}` : `/api/posts`;
+      await axios.post(url, { body });
+      toast.success("Tweet Created");
+      setBody("");
+      await mutatePosts();
+      mutatePost();
+    } catch (e) {
+      toast.error("something went wrong");
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [body, mutatePosts]);
 
   return (
     <div className="border-b-[1px] border-neutral-800 bg-white px-5 py-2 mb-5 ml-1 mr-1 rounded-lg">
@@ -29,10 +63,9 @@ const TextArea: React.FC<TxtAreaProps> = ({ postId, placeholder }) => {
           <hr className="opacity-0 peer-focus:opacity-100 h-[1px] w-full border-neutral-300 transition" />
           <div className="mt-4 flex flex-row justify-end">
             <Button
-              onClick={() => {
-                console.log("posted");
-              }}
-              text="Post"
+              label="Post"
+              onClick={onSubmit}
+              disabled={isLoading || !body}
             />
           </div>
         </div>
