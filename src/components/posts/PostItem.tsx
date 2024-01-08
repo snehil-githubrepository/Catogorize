@@ -58,7 +58,9 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
       className="
                 border-b-[1px]
                 border-neutral-800
+                bg-black
                 p-5
+                m-2
                 rounded-xl
                 cursor-pointer
                 hover:bg-gray-800
@@ -66,7 +68,6 @@ const PostItem: React.FC<postItemProps> = ({ data = {}, userId }) => {
         "
     >
       <div className="flex flex-row items-start gap-3">
-        <h1 className="text-white">Avatar</h1>
         <Avatar userId={data.user.id} />
         <div>
           <div className="flex flex-row items-center gap-2">
