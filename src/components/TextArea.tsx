@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import usePost from "@/hooks/usePost";
-import Emoji from "./Emoji";
 
 interface TxtAreaProps {
   placeholder: string;
