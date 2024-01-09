@@ -9,7 +9,6 @@ interface buttonProps {
   disabled?: boolean;
   outline?: boolean;
 }
-
 const Button: React.FC<buttonProps> = ({
   label,
   secondary,
@@ -24,24 +23,24 @@ const Button: React.FC<buttonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={`
-              disabled:opacity-70
-              disabled:cursor-not-allowed
-              rounded-full
-              font-semibold
-              hover:bg-blue-600
-              transition
-              border-2
-              ${fullWidth ? "w-full" : "w-fit"}
-              ${secondary ? "bg-white" : "bg-blue-500"}
-              ${secondary ? "text-black" : "text-white"}
-              ${secondary ? "border-black" : "border-sky-500"}
-              ${large ? "text-xl" : "text-md"}
-              ${large ? "px-5" : "px-4"}
-              ${large ? "py-3" : "py-2"}
-              ${outline ? "bg-transparent" : ""}
-              ${outline ? "border-white" : ""}
-              ${outline ? "text-white" : ""}
-          `}
+                disabled:opacity-70
+                disabled:cursor-not-allowed
+                rounded-full
+                font-semibold
+                hover:opacity-80
+                transition
+                border-2
+                ${fullWidth ? "w-full" : "w-fit"}
+                ${secondary ? "bg-white" : "bg-blue-700"}
+                ${secondary ? "text-black" : "text-white"}
+                ${secondary ? "border-black" : "border-sky-500"}
+                ${large ? "text-xl" : "text-md"}
+                ${large ? "px-5" : "px-4"}
+                ${large ? "py-3" : "py-2"}
+                ${outline ? "bg-transparent" : ""}
+                ${outline ? "border-white" : ""}
+                ${outline ? "text-white" : ""}
+            `}
     >
       {label}
     </button>
