@@ -27,6 +27,33 @@ export default async function handler(
       },
     });
 
+    //notif part
+    try {
+      const post = await prisma.post.findUnique({
+        where: {
+          id: postId,
+        },
+      });
+      if (post?.userId) {
+        await prisma.notification.create({
+          data: {
+            body: "Someone replied to your Post!",
+            userId: post.userId,
+          },
+        });
+        await prisma.user.update({
+          where: {
+            id: post.userId,
+          },
+          data: {
+            hasNotification: true,
+          },
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
     return res.status(200).json(comment);
   } catch (e) {
     console.log(e);

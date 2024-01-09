@@ -31,6 +31,33 @@ export default async function handler(
 
     if (req.method === "POST" && !userAlreadyLiked) {
       updatedLikedIds.push(currentUser.id);
+      //notif part
+      try {
+        const post = await prisma.post.findUnique({
+          where: {
+            id: postId,
+          },
+        });
+        if (post?.userId) {
+          await prisma.notification.create({
+            data: {
+              body: "Someone liked your Post!",
+              userId: post.userId,
+            },
+          });
+          await prisma.user.update({
+            where: {
+              id: post.userId,
+            },
+            data: {
+              hasNotification: true,
+            },
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      //end
     }
 
     if (req.method === "DELETE" && userAlreadyLiked) {

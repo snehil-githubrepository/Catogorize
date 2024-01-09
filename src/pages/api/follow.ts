@@ -32,7 +32,7 @@ export default async function handler(
       try {
         await prisma.notification.create({
           data: {
-            body: "Someone commented on your tweet!",
+            body: "Someone Followed You!",
             userId,
           },
         });
