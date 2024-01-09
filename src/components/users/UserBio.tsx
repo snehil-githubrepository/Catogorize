@@ -4,14 +4,14 @@ import useUser from "@/hooks/useUser";
 import { format } from "date-fns";
 import Button from "@/components/Button";
 import { BiCalendar } from "react-icons/bi";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { editAtom } from "@/store/modelAtom";
 import useFollow from "@/hooks/useFollow";
 
 const UserBio: React.FC<{ userId: string }> = ({ userId }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedUser } = useUser(userId);
-  const setOpenEditModal = useSetRecoilState(editAtom);
+  const [openEditModal, setOpenEditModal] = useRecoilState(editAtom);
   const { isFollowing, toggleFollow } = useFollow(userId);
 
   const createdAt = useMemo(() => {
@@ -21,15 +21,15 @@ const UserBio: React.FC<{ userId: string }> = ({ userId }) => {
     return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
   }, [fetchedUser]);
 
+  const handleEditClick = () => {
+    setOpenEditModal({ isOpen: true }); // Set the state to open the modal
+  };
+
   return (
     <div className="border-b-[1px] border-neutral-800 pb-4">
       <div className="flex justify-end p-2">
         {currentUser?.id === userId ? (
-          <Button
-            secondary
-            label="Edit"
-            onClick={() => setOpenEditModal({ isOpen: true })}
-          />
+          <Button secondary label="Edit" onClick={handleEditClick} />
         ) : (
           <Button
             label={isFollowing ? "Unfollow" : "Follow"}
