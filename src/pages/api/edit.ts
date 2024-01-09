@@ -9,11 +9,9 @@ export default async function handler(
   if (req.method !== "PATCH") {
     return res.status(405).end();
   }
-
   try {
     const { name, username, bio, profileImage, coverImage } = req.body;
     const { currentUser } = await serverAuth(req, res);
-
     const updatedUser = await prisma.user.update({
       where: {
         id: currentUser.id,
@@ -26,7 +24,6 @@ export default async function handler(
         coverImage,
       },
     });
-
     return res.status(200).json(updatedUser);
   } catch (e) {
     console.log(e);
