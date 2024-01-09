@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loginAtom } from "@/store/modelAtom";
 import { signIn } from "next-auth/react";
+import { signIn as signInWithNextAuth, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 
@@ -13,6 +14,23 @@ export const Login = () => {
   const [loginIsOpen, setLoginIsOpen] = useRecoilState(loginAtom);
 
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const handleGoogleSignIn = useCallback (async () => {
+    try {
+      setIsLoading(true);
+      await signInWithNextAuth("google");
+      // Redirect to home on successful Google sign-in
+      if (status === "authenticated" && session?.user) {
+        router.push("/home");
+      }
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+
+      toast.error("Error while logging in with Google");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [email, password, router]);
 
   const handleLogin = useCallback(async () => {
     try {
@@ -105,6 +123,7 @@ export const Login = () => {
 
                     <button
                       type="button"
+                      onClick={handleGoogleSignIn}
                       className="w-full flex justify-center items-center gap-2 py-3 px-4 border rounded font-light text-md bg-gray-200 text-black hover:bg-gray-300 focus:outline-none focus:ring-2"
                     >
                       <FcGoogle className="w-5 h-5 mr-2" />
