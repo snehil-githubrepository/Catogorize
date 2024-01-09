@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import usePost from "@/hooks/usePost";
+import Emoji from "./Emoji";
 
 interface TxtAreaProps {
   placeholder: string;
@@ -23,6 +24,7 @@ const TextArea: React.FC<TxtAreaProps> = ({
   const { data: currentUser } = useCurrentUser();
   const { mutate: mutatePosts } = usePosts();
   const { mutate: mutatePost } = usePost(postId as string);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const onSubmit = useCallback(async () => {
     try {
@@ -41,8 +43,27 @@ const TextArea: React.FC<TxtAreaProps> = ({
     }
   }, [body, mutatePosts]);
 
+  const handleEmojiButtonClick = () => {
+    setShowEmojiPicker(true);
+  };
+
+  // Function to handle selecting an emoji from the picker
+  const handleEmojiSelect = () => {
+    setShowEmojiPicker(false);
+  };
+
+  const handleCatogorizeButtonClick = () => {
+    // Functionality for catogorize button click
+    // Implement the functionality for categorizing the post/comment
+  };
+
+  const handleImagesLinkButtonClick = () => {
+    // Functionality for images link button click
+    // Implement the functionality for adding image links to the post/comment
+  };
+
   return (
-    <div className="border-b-[1px] border-neutral-800 bg-white px-5 py-2 mb-5 ml-2.5 mr-2.5 rounded-lg">
+    <div className="border-b-[1px] border-neutral-800 bg-black px-5 py-2 mb-5 ml-2.5 mr-2.5 rounded-lg">
       <div className="flex flex-row gap-4">
         <div className="mt-4">
           <Avatar userId={currentUser?.id} />
@@ -52,16 +73,19 @@ const TextArea: React.FC<TxtAreaProps> = ({
             disabled={isLoading}
             onChange={(e) => setBody(e.target.value)}
             value={body}
-            className="disabled:opacity-80 peer rounded-md resize-none mt-3 w-full bg-gray-200 ring-0 outline-none text-[20px] placeholder-neutral-500 "
+            className="disabled:opacity-80 peer rounded-md resize-none mt-3 w-full bg-gray-900 ring-0 outline-none text-[20px] placeholder-neutral-500 text-white"
             placeholder={placeholder}
           ></textarea>
           <hr className="opacity-0 peer-focus:opacity-100 h-[1px] w-full border-neutral-300 transition" />
+
           <div className="mt-4 flex flex-row justify-end">
-            <Button
-              label="Post"
-              onClick={onSubmit}
-              disabled={isLoading || !body}
-            />
+            <div>
+              <Button
+                label="Post"
+                onClick={onSubmit}
+                disabled={isLoading || !body}
+              />
+            </div>
           </div>
         </div>
       </div>
