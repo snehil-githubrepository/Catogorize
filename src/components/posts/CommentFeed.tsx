@@ -7,7 +7,7 @@ interface CommentFeedProps {
 const CommentFeed: React.FC<CommentFeedProps> = ({ comments = [] }) => {
   // Ensure comments exist and have data
   if (!comments || comments.length === 0) {
-    return <p className="p-5 text-white">Comments : None</p>; // Render a message if no comments
+    return <p className="p-5 text-white text-center">Comments : None</p>; // Render a message if no comments
   }
 
   return (
