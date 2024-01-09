@@ -1,5 +1,5 @@
 {
-  "name": "catogoriz",
+  "name": "catogorize",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "axios": "^1.6.3",
     "bcrypt": "^5.1.1",
     "date-fns": "^3.0.6",
+    "emoji-picker-react": "^4.6.7",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "prisma": "^5.7.1",
