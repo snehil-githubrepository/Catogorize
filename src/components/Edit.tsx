@@ -7,7 +7,7 @@ import { editAtom } from "@/store/modelAtom";
 import toast from "react-hot-toast";
 import Input from "@/components/EditUser/Input";
 import ImageUpload from "@/components/ImageUpload";
-import DialogBox from "./EditingUser/DialogBox";
+import DialogBox from "@/components/EditUser/DialogBox";
 
 const EditModal = () => {
   const { data: currentUser } = useCurrentUser();
