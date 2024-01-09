@@ -21,11 +21,6 @@ const PostView = () => {
     );
   }
 
-  // Log comments when fetchedPost and comments exist
-  if (fetchedPost && fetchedPost.comments) {
-    console.log("Comments on this post:", fetchedPost.comments);
-  }
-
   return (
     <Layout>
       <Nav label="Catogorize" showBackArrow />
