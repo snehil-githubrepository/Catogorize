@@ -15,22 +15,17 @@ export const Login = () => {
 
   const router = useRouter();
   const { data: session, status } = useSession();
-  const handleGoogleSignIn = useCallback (async () => {
+  const handleGoogleSignIn = useCallback(async () => {
     try {
       setIsLoading(true);
       await signInWithNextAuth("google");
-      // Redirect to home on successful Google sign-in
-      if (status === "authenticated" && session?.user) {
-        router.push("/home");
-      }
     } catch (error) {
       console.error("Google sign-in error:", error);
-
       toast.error("Error while logging in with Google");
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, router]);
+  }, []);
 
   const handleLogin = useCallback(async () => {
     try {
@@ -44,11 +39,12 @@ export const Login = () => {
         console.error("Login Error:", result.error);
         toast.error("Login failed");
       } else {
-        router.push("/home");
+        await router.push("/home");
         setLoginIsOpen({ isOpen: false });
       }
     } catch (error) {
-      console.log(error);
+      console.error("Login Error:", error);
+      toast.error("Login failed");
     } finally {
       setIsLoading(false);
     }

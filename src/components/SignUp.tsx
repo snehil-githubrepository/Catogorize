@@ -30,7 +30,7 @@ export const Signup = () => {
         });
         // If the registration is successful, display success message
         toast.success("Account Created");
-
+        toast.success("Head to Login page");
         // Automatically sign in the user after successful registration
         await signIn("credentials", {
           email,
