@@ -21,7 +21,6 @@ const EditModal = () => {
   const [openEditModal, setOpenEditModal] = useRecoilState(editAtom);
 
   useEffect(() => {
-    console.log("EditModal useEffect");
     setName(currentUser?.name);
     setUsername(currentUser?.username);
     setBio(currentUser?.bio);
