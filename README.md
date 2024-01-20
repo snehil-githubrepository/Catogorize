@@ -4,9 +4,7 @@
 
 ## Local Development
 
-To develop Shopical locally, you will need to clone this repository and set up all the env vars outlined in the `.env.example file`.
-
-Once that's done, you can use the following commands to run the app locally:
+To develop Categorize locally you can use the following commands to run the app locally:
 
 > In Root Folder
 
